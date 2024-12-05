@@ -1,43 +1,51 @@
 class Animal:
-    def __init__(self, name, health=100):
+    alive = []
+
+    def __init__(self, name: str, health: int = 100) -> None:
         self.name = name
         self.health = health
         self.hidden = False
+        Animal.alive.append(self)
 
-    def take_damage(self, damage):
+    def take_damage(self, damage: int) -> None:
         self.health -= damage
         if self.health < 0:
             self.health = 0
         print(f"{self.name} took {damage} damage. Health: {self.health}")
 
-    def is_alive(self):
+        if self.health == 0:
+            self.die()
+
+    def die(self) -> None:
+        if self in Animal.alive:
+            Animal.alive.remove(self)
+        print(f"{self.name} is dead.")
+
+    def is_alive(self) -> bool:
         return self.health > 0
 
-    def __str__(self):
-        return f"Name: {self.name}, Health: {self.health}, Hidden: {self.hidden}"
+    def __repr__(self) -> str:
+        return (f"{{Name: {self.name}, "
+                f"Health: {self.health}, "
+                f"Hidden: {self.hidden}}}"
+                )
+
 
 class Herbivore(Animal):
-    def __init__(self, name, health=100):
-        self.name = name
-        self.health = health
-        self.hidden = False
-
-    def hide(self):
+    def hide(self) -> None:
         self.hidden = not self.hidden
-        print(f"{self.name} is now {'hidden' if self.hidden else 'visible'}.")
+        print(f"{self.name} is now {"hidden" if self.hidden else "visible"}.")
+
 
 class Carnivore(Animal):
-    def __init__(self, name, health=100):
-        self.name = name
-        self.health = health
-        self.hidden = False
-
-    def bite(self, herbivore) -> None:
+    def bite(self, herbivore: Herbivore) -> None:
         if isinstance(herbivore, Herbivore):
             if herbivore.hidden:
-                print(f"{self.name} cannot bite {herbivore.name} because they are hidden.")
+                print(f"{self.name} cannot bite {herbivore.name} "
+                      f"because they are hidden.")
             else:
                 herbivore.take_damage(50)
-                print(f"{self.name} bit {herbivore.name}. {herbivore.name}'s health: {herbivore.health}")
+                print(f"{self.name} bit {herbivore.name}. "
+                      f"{herbivore.name}'s health: {herbivore.health}")
         else:
             print(f"{self.name} cannot bite another carnivore.")
