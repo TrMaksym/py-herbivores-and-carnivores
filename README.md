@@ -35,15 +35,15 @@ does not work if it is another сarnivore, or the herbivore is currently hiding.
 lion = Carnivore("Lion King")
 rabbit = Herbivore("Susan")
 rabbit.health == 100
-bite(rabbit)
+lion.bite(rabbit)
 rabbit.health == 50  # bited
 
 rabbit.hide()
-bite(rabbit)
+lion.bite(rabbit)
 rabbit.health == 50  # lion cannot bite hidden rabbit
 
 rabbit.hide()
-bite(rabbit)
+lion.bite(rabbit)
 rabbit.health == 0  # rabbit is dead
 
 rabbit in Animal.alive  # False
