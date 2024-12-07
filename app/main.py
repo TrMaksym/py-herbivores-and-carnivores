@@ -34,7 +34,6 @@ class Animal:
 class Herbivore(Animal):
     def hide(self) -> None:
         self.hidden = not self.hidden
-        print(f"{self.name} is now {"hidden" if self.hidden else "visible"}.")
 
 
 class Carnivore(Animal):
