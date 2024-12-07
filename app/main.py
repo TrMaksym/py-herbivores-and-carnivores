@@ -46,6 +46,7 @@ class Carnivore(Animal):
             else:
                 herbivore.take_damage(50)
                 print(f"{self.name} bit {herbivore.name}. "
-                      f"{herbivore.name}'s health: {herbivore.health}")
+                      f"{herbivore.name} s health: {herbivore.health}"
+                      )
         else:
             print(f"{self.name} cannot bite another carnivore.")
